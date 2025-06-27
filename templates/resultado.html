@@ -1,55 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resultados del Examen</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados del Examen - Cuestionario Naval</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <h2>Resultados del Examen</h2>
+    <div class="container">
+        <h1>Resultados del Examen</h1>
+        <h2>{{ dificultad_nombre }}</h2>
 
-    <div class="results-summary">
-      <p>Respuestas correctas: <strong>{{ correctas }} de {{ total }}</strong></p>
-      <p>Porcentaje: <strong>{{ porcentaje|round(2) }}%</strong></p>
-      <p>Vidas restantes al final: <strong>{{ vidas }}</strong></p>
-    </div>
+        <div class="results-summary">
+            <p>Respuestas correctas: <strong>{{ correctas }} de {{ total_preguntas_examen }}</strong></p>
 
-    {# Mensaje especial para Modo Dios #}
-    {% if mensaje_dios %}
-        <p class="resultado-mensaje {{ 'excelente' if 'CONQUISTADO' in mensaje_dios else 'malo' }}">
-            {{ mensaje_dios }}
-        </p>
-    {% else %}
-        {# Mensaje personalizado según el porcentaje para otros modos #}
-        {% if porcentaje >= 90 %}
-            <p class="resultado-mensaje excelente">
-                <span class="emoji">🎉</span> ¡EXCELENTE! Eres un maestro en la materia. ¡Felicidades!
+            <div class="progress-bar-container">
+                {% set progreso = (correctas / total_preguntas_examen) * 100 if total_preguntas_examen > 0 else 0 %}
+                <div class="progress-bar
+                    {% if progreso >= 90 %}excelente
+                    {% elif progreso >= 60 %}regular
+                    {% else %}malo{% endif %}"
+                    style="width: {{ progreso }}%;">
+                    {{ porcentaje|round(1) }}%
+                </div>
+            </div>
+
+            <p>Vidas restantes:
+                <strong>
+                    {% if dificultad_nombre == 'Modo Dios' %}
+                        {{ 'SOBREVIVISTE' if vidas_finales >= 0 else 'CAÍSTE' }} (Modo Dios)
+                    {% else %}
+                        {{ vidas_finales }} de {{ vidas_iniciales }}
+                    {% endif %}
+                </strong>
             </p>
-        {% elif porcentaje >= 60 %}
-            <p class="resultado-mensaje regular">
-                <span class="emoji">👍</span> Estudia un poco más los temas señalados. ¡Vas por buen camino!
-            </p>
+        </div>
+
+        {% if mensaje_especial %}
+            <div class="resultado-mensaje {{ 'excelente' if 'CONQUISTADO' in mensaje_especial else 'malo' }}">
+                <span class="emoji">{{ '🏆' if 'CONQUISTADO' in mensaje_especial else '💔' }}</span>
+                {{ mensaje_especial }}
+            </div>
         {% else %}
-            <p class="resultado-mensaje malo">
-                <span class="emoji">😢</span> De plano estás bien perdido, ¡ponte a estudiar!
-            </p>
+            {% if porcentaje >= 90 %}
+                <div class="resultado-mensaje excelente">
+                    <span class="emoji">🎉</span> ¡EXCELENTE! Dominas la materia. ¡Felicidades!
+                </div>
+            {% elif porcentaje >= 60 %}
+                <div class="resultado-mensaje regular">
+                    <span class="emoji">👍</span> ¡Buen esfuerzo! Sigue repasando los temas sugeridos.
+                </div>
+            {% else %}
+                <div class="resultado-mensaje malo">
+                    <span class="emoji">📚</span> Necesitas estudiar más. ¡No te rindas!
+                </div>
+            {% endif %}
         {% endif %}
-    {% endif %}
 
-    {% if temas %}
-      <h3>Temas a repasar:</h3>
-      <ul class="temas-repasar">
-        {% for tema in temas %}
-          <li>{{ tema }}</li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p class="no-temas">¡No tienes temas que repasar! Gran trabajo.</p>
-    {% endif %}
+        {% if temas_a_repasar %}
+            <h3>Temas a Repasar:</h3>
+            <ul class="temas-repasar">
+                {% for tema in temas_a_repasar %}
+                    <li>{{ tema }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="no-temas">¡Felicidades! No hay temas específicos que repasar.</p>
+        {% endif %}
 
-    <a href="{{ url_for('inicio') }}" class="button-link">Volver a empezar</a>
-  </div>
+        <a href="{{ url_for('inicio') }}" class="button-link">Nuevo Examen</a>
+    </div>
 </body>
 </html>

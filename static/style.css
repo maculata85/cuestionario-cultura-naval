@@ -1,284 +1,460 @@
 /* static/style.css */
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
+/* --- Paleta de Colores y Variables --- */
+:root {
+    --primary-color: #005f73; /* Azul naval oscuro */
+    --secondary-color: #0a9396; /* Azul verdoso medio */
+    --accent-color: #94d2bd; /* Verde agua claro */
+    --light-accent-color: #e9d8a6; /* Arena claro */
+    --danger-color: #ae2012; /* Rojo oscuro para errores/vidas perdidas */
+    --success-color: #008000; /* Verde para éxito */
+    --warning-color: #ee9b00; /* Naranja para advertencias */
+    --text-color: #212529; /* Negro suave */
+    --background-color: #f8f9fa; /* Gris muy claro */
+    --card-background: #ffffff;
+    --border-color: #dee2e6;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- Reseteo Básico y Estilos Globales --- */
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #f0f2f5; /* Un gris claro moderno */
-    color: #333;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.7;
+    background-color: var(--background-color);
+    color: var(--text-color);
     display: flex;
+    flex-direction: column; /* Para permitir footer al final */
     justify-content: center;
     align-items: center;
-    min-height: 100vh; /* Ocupa el 100% del alto de la ventana */
+    min-height: 100vh;
+    padding: 20px;
 }
 
 .container {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: var(--card-background);
+    padding: 30px 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px var(--shadow-color);
     width: 100%;
-    max-width: 600px; /* Ancho máximo para el contenido */
+    max-width: 700px; /* Un poco más de ancho */
     text-align: center;
+    border-top: 5px solid var(--primary-color);
+}
+
+/* --- Encabezados --- */
+h1, h2, h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+    border-bottom: 3px solid var(--secondary-color);
+    padding-bottom: 15px;
 }
 
 h2 {
-    color: #007bff; /* Azul primario */
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 12px;
-    margin-bottom: 25px;
     font-size: 2em;
+    padding-bottom: 10px;
 }
 
+h3 {
+    font-size: 1.5em;
+    color: var(--secondary-color);
+}
+
+/* --- Formularios --- */
 form {
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 label {
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-size: 1.1em;
-    color: #555;
-    text-align: left; /* Alineado a la izquierda */
-    font-weight: bold;
+    color: var(--text-color);
+    text-align: left;
+    font-weight: 500; /* Un poco menos bold */
 }
 
-select, button {
-    padding: 12px 20px;
+select, button, .button-link {
+    padding: 14px 22px;
     border-radius: 8px;
-    border: 1px solid #ced4da;
-    font-size: 1em;
+    border: 1px solid var(--border-color);
+    font-size: 1.05em;
     cursor: pointer;
-    width: 100%; /* Ocupa todo el ancho disponible */
-    box-sizing: border-box; /* Incluye padding y border en el ancho */
-    margin-bottom: 15px;
+    width: 100%;
+    margin-bottom: 18px;
+    transition: all 0.3s ease;
+    font-family: var(--font-family);
 }
 
-button {
-    background-color: #28a745; /* Verde para acciones primarias */
+select {
+    appearance: none; /* Quitar estilo nativo */
+    background-color: var(--card-background);
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px;
+}
+select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 95, 115, 0.25); /* Usando var(--primary-color) con opacidad */
+}
+
+
+button, .button-link {
+    background-color: var(--primary-color);
     color: white;
     border: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button:hover {
-    background-color: #218838;
-    transform: translateY(-2px); /* Efecto ligero al pasar el ratón */
-}
-
-input[type="radio"] {
-    margin-right: 10px;
-    transform: scale(1.2); /* Hace el radio button un poco más grande */
-    vertical-align: middle; /* Alinea con el texto */
-}
-
-.option-label {
-    display: block;
-    background-color: #f8f9fa;
-    border: 1px solid #e2e6ea;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 10px;
-    text-align: left;
-    cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.option-label:hover {
-    background-color: #e9ecef;
-    border-color: #cdd2d7;
-}
-
-.option-label input[type="radio"]:checked + span { /* Si deseas estilizar el texto de la opción seleccionada */
-    font-weight: bold;
-    color: #007bff;
-}
-
-.quiz-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 25px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-}
-
-.quiz-header h2 {
-    margin: 0;
-    border-bottom: none; /* Quitamos el borde inferior aquí */
-}
-
-.vidas-info {
-    font-size: 1.1em;
-    font-weight: bold;
-    margin: 0;
-    white-space: nowrap; /* Evita que los iconos se rompan en varias líneas */
-}
-
-.vida-activa {
-    font-size: 1.2em; /* Hace el corazón un poco más grande */
-    margin: 0 2px;
-    animation: pulse 1.5s infinite; /* Pequeña animación */
-}
-
-.vida-perdida {
-    font-size: 1.2em;
-    margin: 0 2px;
-    opacity: 0.6; /* Un poco translúcido */
-}
-
-.modo-dios-icono {
-    font-size: 1.2em;
-    margin: 0 5px;
-    color: #dc3545; /* Color rojo para peligro */
-}
-
-.question-card {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 25px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.question-theme {
-    font-size: 0.95em;
-    color: #6c757d;
-    margin-bottom: 15px;
-    border-bottom: 1px dashed #eee;
-    padding-bottom: 10px;
-}
-
-.question-text {
-    font-size: 1.3em;
-    margin-bottom: 25px;
-    color: #343a40;
     font-weight: 500;
 }
 
+button:hover, .button-link:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
 
-/* Estilos para mensajes flash */
+/* --- Opciones de Radio para Preguntas --- */
+.option-label {
+    display: flex; /* Para alinear radio y texto */
+    align-items: center;
+    background-color: #fdfdff; /* Ligeramente diferente al card para destacar */
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative; /* Para el pseudo-elemento */
+}
+
+.option-label:hover {
+    border-color: var(--secondary-color);
+    background-color: #f0f7fa; /* Un azul muy claro al pasar el ratón */
+}
+
+input[type="radio"] {
+    appearance: none; /* Ocultar radio button nativo */
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 50%;
+    margin-right: 15px;
+    cursor: pointer;
+    position: relative; /* Para el círculo interior */
+    top: -1px; /* Ajuste vertical fino */
+}
+
+input[type="radio"]:checked {
+    border-color: var(--primary-color);
+}
+
+input[type="radio"]:checked::before {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 12px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.option-label span { /* Para el texto de la opción */
+    flex-grow: 1;
+}
+
+/* --- Cabecera del Quiz (Pregunta X de Y, Vidas) --- */
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinear verticalmente */
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.quiz-header h2 {
+    margin: 0; /* Quitar margen por defecto del h2 */
+    font-size: 1.6em; /* Ajustar tamaño */
+    border-bottom: none;
+}
+
+.vidas-info {
+    font-size: 1.15em;
+    font-weight: 500;
+    display: flex; /* Para alinear iconos */
+    align-items: center;
+}
+
+.vida-icono {
+    font-size: 1.5em; /* Iconos más grandes */
+    margin: 0 3px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.vida-activa {
+    color: var(--success-color); /* Verde para vidas activas */
+    animation: pulseHeart 1.8s infinite ease-in-out;
+}
+
+.vida-perdida {
+    color: var(--danger-color);
+    opacity: 0.7;
+}
+
+.modo-dios-icono {
+    color: var(--danger-color);
+    animation: pulseSkull 1.5s infinite;
+}
+
+/* --- Tarjeta de Pregunta --- */
+.question-card {
+    background-color: var(--card-background);
+    /* Eliminamos borde y sombra aquí si .container ya los tiene, o los personalizamos si es diferente */
+    padding: 30px; /* Más padding interno */
+    margin-bottom: 25px;
+    border-radius: 12px; /* Consistente con container si es una sub-card */
+    /* box-shadow: 0 4px 10px var(--shadow-color); */ /* Opcional si se quiere destacar más */
+}
+
+.question-theme {
+    font-size: 1em;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    font-weight: 500;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--accent-color);
+}
+
+.question-text {
+    font-size: 1.35em; /* Texto de pregunta más grande */
+    margin-bottom: 30px;
+    color: var(--text-color);
+    font-weight: 400; /* Un poco menos bold que el label */
+    line-height: 1.5;
+}
+
+/* --- Mensajes Flash --- */
 .flashes {
     list-style: none;
     padding: 0;
-    margin: -10px 0 20px 0; /* Ajuste el margen superior */
+    margin: 0 0 25px 0; /* Ajuste de margen */
 }
 
 .flashes li {
-    padding: 12px;
-    margin-bottom: 10px;
+    padding: 15px 20px;
+    margin-bottom: 12px;
     border-radius: 8px;
-    font-weight: bold;
+    font-weight: 500;
     text-align: center;
-    opacity: 0.95;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    opacity: 1; /* Opacidad total */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    border-left: 5px solid; /* Borde lateral para destacar tipo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flashes li::before { /* Icono para mensajes */
+    font-family: 'Material Icons', 'Segoe UI Symbol'; /* Asumiendo uso de iconos */
+    margin-right: 10px;
+    font-size: 1.5em;
 }
 
 .flashes li.error {
-    background-color: #f8d7da; /* Rojo claro */
-    color: #721c24; /* Rojo oscuro */
-    border: 1px solid #f5c6cb;
+    background-color: #fdeded; /* Rojo muy claro */
+    color: var(--danger-color);
+    border-color: var(--danger-color);
 }
+.flashes li.error::before { content: '❌'; } /* O un icono de error real */
 
 .flashes li.success {
-    background-color: #d4edda; /* Verde claro */
-    color: #155724; /* Verde oscuro */
-    border: 1px solid #c3e6cb;
+    background-color: #e6f4e6; /* Verde muy claro */
+    color: var(--success-color);
+    border-color: var(--success-color);
 }
+.flashes li.success::before { content: '✅'; } /* O un icono de éxito real */
 
-/* Estilos para la página de resultados */
+.flashes li.warning {
+    background-color: #fff8e1;
+    color: var(--warning-color);
+    border-color: var(--warning-color);
+}
+.flashes li.warning::before { content: '⚠️'; }
+
+/* --- Página de Resultados --- */
 .results-summary {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 25px;
-    border: 1px solid #e9ecef;
+    background-color: #eef7f8; /* Un color de fondo suave, relacionado con la paleta */
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    border: 1px solid var(--accent-color);
+    text-align: left;
 }
 
 .results-summary p {
-    font-size: 1.1em;
-    margin-bottom: 8px;
-    color: #495057;
+    font-size: 1.15em;
+    margin-bottom: 12px;
+    color: var(--text-color);
 }
 
 .results-summary p strong {
-    color: #007bff;
+    color: var(--primary-color);
+    font-weight: 600;
 }
 
-.resultado-mensaje {
-    padding: 18px;
-    border-radius: 10px;
-    font-size: 1.25em;
-    font-weight: bold;
+.progress-bar-container {
+    width: 100%;
+    background-color: var(--border-color);
+    border-radius: 20px;
+    height: 28px; /* Barra más gruesa */
+    margin: 15px 0 25px;
+    overflow: hidden; /* Para que el progreso no se salga */
+}
+
+.progress-bar {
+    height: 100%;
+    /* El color se aplicará directamente en la clase de la barra */
+    /* background-color: var(--success-color); */
+    border-radius: 20px 0 0 20px; /* Redondear solo inicio si no es 100% */
     text-align: center;
-    margin-top: 25px;
-    margin-bottom: 30px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    line-height: 28px; /* Centrar texto verticalmente */
+    color: white;
+    font-weight: 500;
+    transition: width 0.8s ease-in-out;
+    white-space: nowrap; /* Evitar que el texto se rompa */
+    padding: 0 10px; /* Padding para el texto dentro de la barra */
+}
+/* Clases para el color de la barra de progreso */
+.progress-bar.excelente { background-color: var(--success-color); }
+.progress-bar.regular { background-color: var(--warning-color); }
+.progress-bar.malo { background-color: var(--danger-color); }
+
+
+.resultado-mensaje {
+    padding: 20px 25px;
+    border-radius: 10px;
+    font-size: 1.3em;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 35px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid;
 }
 
 .resultado-mensaje .emoji {
-    margin-right: 10px;
-    font-size: 1.5em;
+    margin-right: 12px;
+    font-size: 1.8em;
     vertical-align: middle;
 }
 
 .resultado-mensaje.excelente {
-    background-color: #e6ffe6; /* Light green */
-    color: #1a7e1a; /* Dark green */
-    border: 1px solid #b2e0b2;
+    background-color: #e6f4e6;
+    color: var(--success-color);
+    border-color: var(--success-color);
 }
 
 .resultado-mensaje.regular {
-    background-color: #fff8e1; /* Light yellow */
-    color: #8a6d3b; /* Dark yellow/brown */
-    border: 1px solid #ffe08a;
+    background-color: #fff8e1;
+    color: var(--warning-color); /* Usar color de advertencia para regular */
+    border-color: var(--warning-color);
 }
 
 .resultado-mensaje.malo {
-    background-color: #ffe0e0; /* Light red */
-    color: #b33939; /* Dark red */
-    border: 1px solid #ffa3a3;
+    background-color: #fdeded;
+    color: var(--danger-color);
+    border-color: var(--danger-color);
 }
 
 .temas-repasar {
-    list-style-type: disc;
-    padding-left: 25px;
-    margin-top: 20px;
+    list-style-type: none; /* Quitar bullets por defecto */
+    padding-left: 0;
+    margin-top: 25px;
     text-align: left;
+}
+.temas-repasar h3 {
+    margin-bottom: 15px;
 }
 
 .temas-repasar li {
-    margin-bottom: 8px;
-    color: #555;
+    background-color: #fdfdff;
+    border: 1px solid var(--border-color);
+    padding: 12px 18px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: var(--text-color);
+    transition: background-color 0.2s;
+}
+.temas-repasar li:hover {
+    background-color: #f1f1f1;
 }
 
 .no-temas {
     font-style: italic;
-    color: #6c757d;
-    margin-top: 20px;
+    color: #555; /* Un gris más oscuro */
+    margin-top: 25px;
+    font-size: 1.1em;
 }
 
 .button-link {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: #007bff;
-    color: white;
+    display: inline-block; /* Para que no ocupe todo el ancho si no es necesario */
+    width: auto; /* Ajustar al contenido */
+    padding: 14px 30px; /* Más padding horizontal */
+    margin-top: 35px;
     text-decoration: none;
-    border-radius: 8px;
-    margin-top: 30px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.button-link:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
+/* --- Animaciones --- */
+@keyframes pulseHeart {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
 }
 
-/* Animación para el corazón activo */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+@keyframes pulseSkull {
+    0%, 100% { transform: scale(1) rotate(0deg); color: var(--danger-color); }
+    25% { transform: scale(1.1) rotate(-5deg); }
+    50% { transform: scale(1) rotate(0deg); color: #c00; } /* Ligeramente más oscuro */
+    75% { transform: scale(1.1) rotate(5deg); }
+}
+
+/* --- Media Queries para Responsividad --- */
+@media (max-width: 768px) {
+    .container {
+        padding: 25px 20px;
+        margin: 15px;
+    }
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.7em; }
+    .quiz-header { flex-direction: column; align-items: flex-start; }
+    .quiz-header h2 { margin-bottom: 10px; }
+    .vidas-info { margin-top: 8px; }
+    .option-label { padding: 12px 15px; }
+    input[type="radio"] { width: 20px; height: 20px; margin-right: 12px;}
+    input[type="radio"]:checked::before { width: 10px; height: 10px; }
+}
+
+@media (max-width: 480px) {
+    body { padding: 10px; }
+    .container { padding: 20px 15px; }
+    h1 { font-size: 1.8em; }
+    h2 { font-size: 1.5em; }
+    select, button, .button-link { padding: 12px 18px; font-size: 1em; }
+    .question-text { font-size: 1.15em; }
+    .resultado-mensaje { font-size: 1.1em; }
+    .progress-bar { height: 24px; line-height: 24px; }
+
 }
